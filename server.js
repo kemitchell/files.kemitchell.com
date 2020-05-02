@@ -88,7 +88,7 @@ function serveIndex (request, response) {
 }
 
 function listFiles (callback) {
-  const directory = process.env.DIRECTORY || 'files'
+  const directory = directoryName()
   fs.readdir(directory, (error, entries) => {
     if (error) return callback(error)
     const files = []
@@ -119,7 +119,7 @@ function serveStyles (request, response) {
 function serveFile (request, response) {
   request.fileName = path.basename(request.parsed.pathname)
   request.filePath = path.join(
-    process.env.DIRECTORY || 'files',
+    directoryName(),
     request.fileName
   )
   const method = request.method
@@ -209,4 +209,10 @@ function internalError (request, response, error) {
   request.log.error(error)
   response.statusCode = 500
   response.end()
+}
+
+// Helper Functions
+
+function directoryName () {
+  return process.env.DIRECTORY || 'files'
 }
