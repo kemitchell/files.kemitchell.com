@@ -1,4 +1,5 @@
 html {
+  font-family: "Equity", serif;
   line-height: 1.37;
 }
 
@@ -12,6 +13,7 @@ h1 {
 }
 
 textarea {
+  font-family: "Triplicate", sans-serif;
   height: 80vh;
   width: 100%;
 }
