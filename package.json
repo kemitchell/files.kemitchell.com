@@ -10,9 +10,11 @@
     "url-parse": "^1.4.7"
   },
   "devDependencies": {
+    "licensee": "^8.0.2",
     "standard": "^14.3.3"
   },
   "scripts": {
+    "licenses": "licensee --errors-only",
     "lint": "standard",
     "fix": "standard --fix"
   }
