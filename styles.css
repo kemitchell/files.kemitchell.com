@@ -1,0 +1,23 @@
+html {
+  line-height: 1.37;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 33rem;
+}
+
+h1 {
+  height: 5vh;
+}
+
+textarea {
+  height: 80vh;
+  width: 100%;
+}
+
+button {
+  height: 5vh;
+  margin: 0;
+  width: 100%;
+}

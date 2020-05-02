@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "dependencies": {
+    "busboy": "^0.3.1",
+    "do-not-cache": "^1.0.1",
+    "escape-html": "^1.0.3",
+    "pino": "^6.2.1",
+    "pino-http": "^5.1.0",
+    "run-series": "^1.1.8",
+    "url-parse": "^1.4.7"
+  },
+  "devDependencies": {
+    "standard": "^14.3.3"
+  },
+  "scripts": {
+    "lint": "standard",
+    "fix": "standard --fix"
+  }
+}
