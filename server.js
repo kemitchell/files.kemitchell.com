@@ -144,6 +144,12 @@ function getFile (request, response) {
   })
 
   function servePage (text) {
+    const accept = request.headers.accept
+    if (accept === 'text/plain') {
+      response.setHeader('Content-Type', 'text/plain')
+      response.end(text)
+      return
+    }
     response.setHeader('Content-Type', 'text/html')
     response.end(`
 <!doctype html>
