@@ -6,6 +6,7 @@ html {
 main {
   margin: 0 auto;
   max-width: 33rem;
+  padding: 1rem;
 }
 
 h1 {
