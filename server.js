@@ -28,7 +28,7 @@ const server = require('http').createServer()
 
 server.on('request', (request, response) => {
   addLoggers(request, response)
-  const parsed = request.parsed = parseURL(request.url)
+  const parsed = request.parsed = parseURL(request.url, true)
   const pathname = parsed.pathname
   if (pathname === '/') return serveIndex(request, response)
   if (pathname === '/styles.css') return serveStyles(request, response)
@@ -111,6 +111,20 @@ function listFiles (callback) {
   })
 }
 
+function listVersions (name, callback) {
+  const directory = path.join(directoryName(), name)
+  fs.readdir(directory, (error, entries) => {
+    if (error) {
+      if (error.code === 'ENOENT') {
+        return callback(null, [])
+      }
+      return callback(error)
+    }
+    const versions = entries.filter((entry) => !isNaN(Date.parse(entry)))
+    callback(null, versions.sort())
+  })
+}
+
 function serveStyles (request, response) {
   const file = path.join(__dirname, 'styles.css')
   fs.createReadStream(file).pipe(response)
@@ -131,25 +145,36 @@ function serveFile (request, response) {
 
 function getFile (request, response) {
   doNotCache(response)
-  const latest = path.join(request.filePath, 'latest')
-  fs.readlink(latest, (error, path) => {
+  const version = request.parsed.query.version
+    ? decodeURIComponent(request.parsed.query.version)
+    : 'latest'
+  const file = path.join(request.filePath, version)
+  fs.readFile(file, 'utf8', (error, text) => {
     if (error) {
-      if (error.code === 'ENOENT') return servePage('')
+      if (error.code === 'ENOENT') return withText('')
       return internalError(request, response, error)
     }
-    fs.readFile(path, 'utf8', (error, text) => {
-      if (error) return internalError(request, response, error)
-      servePage(text)
-    })
+    withText(text)
   })
 
-  function servePage (text) {
+  function withText (text) {
+    listVersions(request.fileName, (error, versions) => {
+      if (error) return internalError(request, response, error)
+      servePage(text, versions)
+    })
+  }
+
+  function servePage (text, versions) {
     const accept = request.headers.accept
     if (accept === 'text/plain') {
       response.setHeader('Content-Type', 'text/plain')
       response.end(text)
       return
     }
+    const items = versions.map((version) => {
+      const url = `/${encodeURIComponent(request.fileName)}?version=${encodeURIComponent(version)}`
+      return `<li><a href="${url}">${escapeHTML(version)}</a></li>`
+    })
     response.setHeader('Content-Type', 'text/html')
     response.end(`
 <!doctype html>
@@ -165,6 +190,7 @@ function getFile (request, response) {
         <textarea name=text>${escapeHTML(text)}</textarea>
         <button type=submit>Save</button>
       </form>
+      <ol id=versions>${items.join('')}</ol>
     </main>
   </body>
 </html>
