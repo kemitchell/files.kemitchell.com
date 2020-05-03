@@ -51,3 +51,6 @@ ol {
   margin: 0;
   padding: 0;
 }
+
+a[href] { text-decoration: none; }
+a[href]:hover { text-decoration: underline; }
