@@ -1,5 +1,5 @@
 html {
-  font-family: "Equity", serif;
+  font-family: "Concourse", "Helvetica", "Arial", sans-serif;
   line-height: 1.37;
   padding: 0;
 }
@@ -28,7 +28,6 @@ textarea, button {
 
 textarea {
   flex: 1;
-  font-family: "Triplicate", sans-serif;
   overflow-y: scroll;
 }
 
