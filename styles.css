@@ -10,9 +10,16 @@ body {
 }
 
 main {
+  box-sizing: border-box;
   height: 80vh;
   margin: 0 auto;
   max-width: 30rem;
+  padding: 1rem;
+}
+
+h1 {
+  margin: 0 0 1rem 0;
+  padding: 0;
 }
 
 form {
@@ -23,7 +30,7 @@ form {
 }
 
 textarea, button {
-  width: 100%;
+  display: block;
 }
 
 textarea {
@@ -32,6 +39,15 @@ textarea {
 }
 
 button {
+  background: white;
+  border: 1px solid black;
+  border-radius: 0.5rem;
   margin: 1rem 0;
   padding: 1rem;
+}
+
+ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
