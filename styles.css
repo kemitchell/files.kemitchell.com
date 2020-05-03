@@ -1,26 +1,38 @@
 html {
   font-family: "Equity", serif;
   line-height: 1.37;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
 }
 
 main {
+  height: 100vh;
   margin: 0 auto;
-  max-width: 33rem;
-  padding: 1rem;
+  max-width: 30rem;
 }
 
-h1 {
-  height: 5vh;
+form {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  width: 100%;
+}
+
+textarea, button {
+  width: 100%;
 }
 
 textarea {
+  flex: 1;
   font-family: "Triplicate", sans-serif;
-  height: 80vh;
-  width: 100%;
+  overflow-y: scroll;
 }
 
 button {
-  height: 5vh;
-  margin: 0;
-  width: 100%;
+  margin: 1rem 0;
+  padding: 1rem;
 }
