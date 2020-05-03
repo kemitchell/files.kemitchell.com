@@ -2,6 +2,7 @@ const Busboy = require('busboy')
 const doNotCache = require('do-not-cache')
 const escapeHTML = require('escape-html')
 const fs = require('fs')
+const moment = require('moment')
 const parseURL = require('url-parse')
 const path = require('path')
 const runSeries = require('run-series')
@@ -173,7 +174,8 @@ function getFile (request, response) {
     }
     const items = versions.map((version) => {
       const url = `/${encodeURIComponent(request.fileName)}?version=${encodeURIComponent(version)}`
-      return `<li><a href="${url}">${escapeHTML(version)}</a></li>`
+      const text = moment(version).fromNow()
+      return `<li><a href="${url}" title="${escapeHTML(version)}">${escapeHTML(text)}</a></li>`
     })
     response.setHeader('Content-Type', 'text/html')
     response.end(`
