@@ -33,6 +33,7 @@ server.on('request', (request, response) => {
   const pathname = parsed.pathname
   if (pathname === '/') return serveIndex(request, response)
   if (pathname === '/styles.css') return serveStyles(request, response)
+  if (pathname === '/client.js') return serveClient(request, response)
   return serveFile(request, response)
 })
 
@@ -128,6 +129,13 @@ function listVersions (name, callback) {
 
 function serveStyles (request, response) {
   const file = path.join(__dirname, 'styles.css')
+  response.setHeader('Content-Type', 'text/css')
+  fs.createReadStream(file).pipe(response)
+}
+
+function serveClient (request, response) {
+  const file = path.join(__dirname, 'client.js')
+  response.setHeader('Content-Type', 'tex/javascript')
   fs.createReadStream(file).pipe(response)
 }
 
@@ -187,13 +195,14 @@ function getFile (request, response) {
   </head>
   <body>
     <main>
-      <form method=post enctype=multipart/form-data>
+      <form id=form method=post enctype=multipart/form-data>
         <h1>${escapeHTML(request.fileName)}</h1>
-        <textarea name=text>${escapeHTML(text)}</textarea>
+        <textarea id=textarea name=text>${escapeHTML(text)}</textarea>
         <button type=submit>Save</button>
       </form>
       <ol id=versions>${items.join('')}</ol>
     </main>
+    <script src=/client.js></script>
   </body>
 </html>
     `.trim())
