@@ -180,11 +180,13 @@ function getFile (request, response) {
       response.end(text)
       return
     }
-    const items = versions.map((version) => {
-      const url = `/${encodeURIComponent(request.fileName)}?version=${encodeURIComponent(version)}`
-      const text = moment(version).fromNow()
-      return `<li><a href="${url}" title="${escapeHTML(version)}">${escapeHTML(text)}</a></li>`
-    })
+    const items = versions
+      .slice(0, 10)
+      .map((version) => {
+        const url = `/${encodeURIComponent(request.fileName)}?version=${encodeURIComponent(version)}`
+        const text = moment(version).fromNow()
+        return `<li><a href="${url}" title="${escapeHTML(version)}">${escapeHTML(text)}</a></li>`
+      })
     response.setHeader('Content-Type', 'text/html')
     response.end(`
 <!doctype html>
