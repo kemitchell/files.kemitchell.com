@@ -181,6 +181,7 @@ function getFile (request, response) {
       return
     }
     const items = versions
+      .reverse()
       .slice(0, 10)
       .map((version) => {
         const url = `/${encodeURIComponent(request.fileName)}?version=${encodeURIComponent(version)}`
