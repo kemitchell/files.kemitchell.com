@@ -135,7 +135,7 @@ function serveStyles (request, response) {
 
 function serveClient (request, response) {
   const file = path.join(__dirname, 'client.js')
-  response.setHeader('Content-Type', 'tex/javascript')
+  response.setHeader('Content-Type', 'text/javascript')
   fs.createReadStream(file).pipe(response)
 }
 
