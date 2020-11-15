@@ -1,9 +1,9 @@
-var textarea
+let textarea
 
 document.addEventListener('DOMContentLoaded', function () {
   textarea = document.getElementById('textarea')
   textarea.addEventListener('input', onInput)
-  var form = document.getElementById('form')
+  const form = document.getElementById('form')
   form.addEventListener('submit', function () {
     window.removeEventListener('beforeunload', onBeforeUnload)
   })
