@@ -63,6 +63,12 @@ function serveIndex (request, response) {
   })
 
   function servePage (files) {
+    const accept = request.headers.accept
+    if (accept === 'text/plain') {
+      response.setHeader('Content-Type', 'text/plain')
+      response.end(files.sort().join('\n') + '\n')
+      return
+    }
     const items = files.map((file) => {
       return `
 <li>
