@@ -1,3 +1,5 @@
+// Set beforeunload event listeners to prevent loss of unsaved work.
+
 let textarea
 
 document.addEventListener('DOMContentLoaded', function () {
