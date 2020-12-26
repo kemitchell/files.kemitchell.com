@@ -206,7 +206,7 @@ function getFile (request, response) {
     <main>
       <form id=form method=post enctype=multipart/form-data>
         <h1><a href=/>files</a>/${escapeHTML(request.fileName)}</h1>
-        <textarea id=textarea name=text>${escapeHTML(text)}</textarea>
+        <textarea id=textarea name=text autofocus>${escapeHTML(text)}</textarea>
         <button type=submit>Save</button>
       </form>
       <ol id=versions>${items.join('')}</ol>
