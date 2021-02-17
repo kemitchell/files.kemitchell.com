@@ -87,7 +87,7 @@ function serveIndex (request, response) {
   <body>
     <main>
       <h1>Files</h1>
-      <ul>${items.join('')}</ul>
+      <ol>${items.join('')}</ol>
     </main>
   </body>
 </html>
